@@ -6,7 +6,9 @@
     <meta name="description" content="<?php echo $site_description; ?>" />
     <title><?php echo $title; ?> | <?php echo $site_title ;?></title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/darkstrap.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
+    <link rel="icon" type="image/gif" href="<?php echo base_url(); ?>assets/img/favicon.gif">
     
     <style type="text/css">
       body {
