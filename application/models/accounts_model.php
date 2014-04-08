@@ -153,7 +153,6 @@ class Accounts_model extends CI_Model {
 	 * @return	bool
 	 */		
 	public function replace_pgp_key($user_id, $data) {
-		$this->db->where('user_id', $user_id);
 		return ($this->db->update('pgp_keys', array('public_key' => $data['public_key'],
 												    'fingerprint' => $data['fingerprint'])) == TRUE) ? TRUE : FALSE;
 	}
