@@ -17,7 +17,7 @@ Entrez maintenant :<br/>
 copiez l'adresse bitcoin obtenu
 et tapez maintenant :<br/>
 <code> validateaddress [bitcoinaddress]</code><br/>
-copiez la clef publique (pubkey) généré </p>
+copiez la clef publique (pubkey) généré, elle vous sera demander pour réalisée la transaction </p>
 
 	<div class='row-fluid'>
 		<p>Si ce service vous plait et  que vous désirez nous aider, faite une donation à cette adresse bitcoin : <a href="bitcoin:18axFTskYWpXMTx6kySGjZJHEWFHwd89KA">18axFTskYWpXMTx6kySGjZJHEWFHwd89KA</a>. Les donations servent à financer le service d'hebergement de Liberty's Hackers l'exedent arrivé sur cette adresse ira en priorité aux developpeurs de BitWasp. Vous pouvez aussi faire une donation directement aux developpeur de BitWasp si vous le désirez en vous rendant sur leur compte github</p>
