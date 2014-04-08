@@ -565,6 +565,11 @@ class Orders extends CI_Controller {
 		$data['fees']['total'] = $data['order']['shipping_costs']+$data['order']['fees'];
 		$data['user_role'] = $this->current_user->user_role;
 		$data['local_currency'] = $this->current_user->currency;		
+		
+		$this->load->library('ciqrcode');
+		$data['payment_url'] = "bitcoin:{$data['order']['address']}?amount={$data['order']['order_price']}&message=Order+{$data['order']['id']}&label=Order+{$data['order']['id']}";
+		$data['qr'] = $this->ciqrcode->generate_base64(array('data' => $data['payment_url']));
+
 		$data['page'] = 'orders/details';
 		$data['title'] = 'Order Details: #'.$data['order']['id'];
 		$this->load->library('Layout', $data);
