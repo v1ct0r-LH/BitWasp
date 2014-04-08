@@ -10,13 +10,15 @@
             <p>l'accès à ce market est complètement gratuit que vous soyez vendeur ou acheteur.</p>
             <p>BitWasp est un logiciel innovant et experimental qui implemente une nouvelle maniere de controler les transactions au moyen de la fonction multisig de bitcoin, grace à cette nouvelle maniere de faire vos bitcoins ne passent pas par un ewallet mais les transactions sont réalisés directement du wallet de l'acheteur  au wallet du vendeur. Ainsi en cas de compromission du site ou de malhoneteté d'un admin vous ne perdrez pas vos bitcoin puisque nous ne les détenons pas. Et afin de vous proteger du scam vous pouvez egalement utiliser l'escrow qui vous permettra de ne valider la transaction qu'à reception de la commande. En cas de litige, acheteur comme vendeur peuvent signaler le probleme(dispute), l'admin ne pourra intervenir sur la transaction que si vous avez utilisé l'escrow. Dans les autres cas, il pourra decider de bannir le vendeur ou l'acheteur responsable ou de prendre toute autre décision pour gerer le probleme.</p>
 
-<p> Afin de generer les clefs publiques necessaires à la signature des transactions vous devez utiliser bitcoin-core ou bitcoind car c'est actuellement les seuls clients qui permettent de generer les clef publiques, si toutefois vous utiliser un autre client vous pouvez utiliser ce service java-script pour generer les clef publiques à partir des adresses bitcoin de votre wallet <a href="http://bitwasp6sqggqoz7.onion/bitcoin-multisig/index.html">http://bitwasp6sqggqoz7.onion/bitcoin-multisig/index.html</a>
+<p> Afin de generer les clefs publiques necessaires à la signature des transactions vous devez utiliser bitcoin-core ou bitcoind car c'est actuellement les seuls clients qui permettent de  signer les transactions multisignature</p>
 <p> Afin de generer les clefs publique à partir de bitcoin-core il vous faut utiliser la console, pour celà depuis la barre d'outil, selectionnez  Aide -> Fenêtre de débogage -> et choisissez l'onglet Console .
-Enter maintenant : 
-<code>getnewaddress</code>
+Entrez maintenant :<br/> 
+<code> getnewaddress </code><br/>
+copiez l'adresse bitcoin obtenu
+et tapez maintenant :<br/>
+<code> validateaddress [bitcoinaddress]</code><br/>
+copiez la clef publique (pubkey) généré </p>
 
-
-validateaddress <bitcoinaddress>	
 	<div class='row-fluid'>
 		<p>Si ce service vous plait et  que vous désirez nous aider, faite une donation à cette adresse bitcoin : <a href="bitcoin:18axFTskYWpXMTx6kySGjZJHEWFHwd89KA">18axFTskYWpXMTx6kySGjZJHEWFHwd89KA</a>. Les donations servent à financer le service d'hebergement de Liberty's Hackers l'exedent arrivé sur cette adresse ira en priorité aux developpeurs de BitWasp. Vous pouvez aussi faire une donation directement aux developpeur de BitWasp si vous le désirez en vous rendant sur leur compte github</p>
     </div>
