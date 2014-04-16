@@ -33,8 +33,10 @@ class Messages extends CI_Controller {
 		// Automatically check if a PIN is required.
 		if($this->bw_config->encrypt_private_messages == TRUE) {
 			// If not set, redirect so the user can enter their pin.
-			if($this->current_user->message_password == NULL && uri_string() !== 'message/pin')
+			if($this->current_user->message_password == NULL && uri_string() !== 'message/pin'){
+				$this->session->set_userdata('before_msg_pin',uri_string());
 				redirect('message/pin');
+			} 
 		}			
 	}
 	 
@@ -290,7 +292,9 @@ class Messages extends CI_Controller {
 			if($answer == $solution) {
 				$this->current_user->set_message_password($message_password);
 				unset($message_password);
-				redirect('inbox');
+				$to_location = $this->session->userdata('before_msg_pin');
+				$this->session->unset_userdata('before_msg_pin');
+				redirect($to_location);
 			} else {
 				$data['returnMessage'] = 'The PIN you entered was incorrect. Please try again';
 			}
@@ -341,9 +345,24 @@ class Messages extends CI_Controller {
 	 */
 	public function check_pgp_is_required($param) {
 		$this->load->model('accounts_model');
-		$encrypted = ((stripos($param, '-----BEGIN PGP MESSAGE-----') !== FALSE) && (stripos($param, '-----END PGP MESSAGE-----') !== FALSE)) ? '1' : '0' ;
-		$user = $this->accounts_model->get(array('user_name' => $this->input->post('user_name')));
-		return ($user['block_non_pgp'] == '1' && $encrypted == '0') ? FALSE : TRUE;
+		$encrypted = ($this->check_pgp_encrypted($param) == TRUE) ? TRUE : FALSE ;
+		$block_non_pgp = $this->accounts_model->user_requires_pgp_messages($this->input->post('user_name'));
+		$o = ($block_non_pgp == FALSE || $block_non_pgp == TRUE && $encrypted == TRUE) ? TRUE : FALSE;
+		return $o;
+	}
+	
+	/**
+	 * Check PGP Encrypted
+	 * 
+	 * See Bw_messages/check_pgp_encrypted();
+	 * 
+	 * @param	string	$param
+	 * @return	boolean
+	 */
+	public function check_pgp_encrypted($param) {
+		$o = ($this->bw_messages->check_pgp_encrypted($param) == TRUE) ? TRUE : FALSE;
+		return $o;
 	}
 };
+
 /* End of file Messages.php */
