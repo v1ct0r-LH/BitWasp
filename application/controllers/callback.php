@@ -21,6 +21,10 @@ class Callback extends CI_Controller {
 	 */
 	public function __construct() {
 		parent::__construct();
+		
+		// Prevent access via web. Uncomment when enough people have changed.
+		//if(!$this->input->is_cli_request())
+			//die("Not Allowed");
 	}
 	
 	/**
@@ -41,7 +45,7 @@ class Callback extends CI_Controller {
 		$this->load->model('transaction_cache_model');
 
 		// Die if bitcoind is actually offline.
-		if($this->bw_bitcoin->getinfo() == NULL){
+		if($this->bw_bitcoin->getinfo() == NULL) {
 			return FALSE;
 		}
 		// Reject already known blocks.
@@ -49,21 +53,8 @@ class Callback extends CI_Controller {
 			return FALSE;
 		$block = $this->bw_bitcoin->getblock($block_hash);
 		
-/*		// Check for chain consistency
-		if($this->transaction_cache_model->check_block_height_set($block['height']) == TRUE) {
-			
-			// Load the block before this, and check if it's in our list.  
-			$prev_block = $this->bw_bitcoin->getblock($block['previousblockhash']);  
-			// This loops backwards from the new latest block and attempts 
-			// to find the common ancestor.
-			while($this->transaction_cache_model->block_info( array('block' => $prev_block['hash']) ) == FALSE ) {
-				$prev_block = $this->bw_bitcoin->getblock($block['previousblockhash']);
-			}
-			
-			// $prev_block contains common ancestor. 
-			// Delete ll 
-			
-		}	*/
+		if(!is_array($block))
+			return FALSE;
 		
 		$watched_addresses = $this->bitcoin_model->watch_address_list();
 		if(count($watched_addresses) == 0)
@@ -72,7 +63,7 @@ class Callback extends CI_Controller {
 		$txs = array();
 		foreach($block['tx'] as $id => $tx_id) {
 			array_push($txs, array(	'tx_id' => $tx_id,
-				'block_height' => $block['height']));
+									'block_height' => $block['height']));
 		}
 		$this->transaction_cache_model->add_cache_list($txs);
 	}	
@@ -115,8 +106,8 @@ class Callback extends CI_Controller {
 		$this->load->model('order_model');
 
 		// No problems, so prevent other instances from running!
-		$this->config_model->update(array('bitcoin_callback_running' => 'true'));
-		$this->config_model->update(array('bitcoin_callback_start_time' => time()));
+		$this->config_model->update(array(	'bitcoin_callback_running' => 'true',
+											'bitcoin_callback_start_time' => time()));
 
 		// Load watched addresses, and payments received on addresses.
 		$watched_addresses = $this->bitcoin_model->watch_address_list();

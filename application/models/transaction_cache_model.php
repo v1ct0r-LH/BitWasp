@@ -36,6 +36,7 @@ class Transaction_cache_model extends CI_Model {
 	 * @return	boolean
 	 */
 	public function add_cache_list($array) {
+		var_dump($array);
 		return ($this->db->insert_batch('transactions_block_cache', $array) == TRUE) ? TRUE : FALSE;
 	}
 	
@@ -144,8 +145,8 @@ class Transaction_cache_model extends CI_Model {
 	 * @return	boolean
 	 */
 	public function check_already_have_payment($tx_id, $vout) {
-		$this->db->where('tx_id', $tx_id);
-		$this->db->where('vout', $vout);
+		$this->db->where('tx_id', $tx_id)
+				 ->where('vout', $vout);
 		$query = $this->db->get('transactions_payments_cache');
 		return ($query->num_rows() > 0) ? TRUE : FALSE;
 	}
